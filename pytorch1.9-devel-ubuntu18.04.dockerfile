@@ -44,7 +44,6 @@ RUN rm -f /usr/bin/python && \
 COPY ./scripts/.bashrc /root/
 COPY ./scripts/.scripts /root/.scripts
 RUN sed -i "s/PT_VER/PT1.9/" /root/.bashrc
-RUN localedef -i en_US -f en_UTF-8 en_US.UTF-8
 
 RUN chmod 777 -R /root
 RUN echo "source /root/.bashrc" >> /etc/bash.bashrc

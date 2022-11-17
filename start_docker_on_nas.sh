@@ -52,11 +52,11 @@ if [ $? -eq 0 ];then
     docker start ${container_name}
     docker exec -it -w ${NAS_HOME} --use-nas-user ${container_name} /bin/bash
     #docker exec -it ${container_name} /bin/bash
-    if [ $? != 0 ];then
-      echo "Maybe old dockerExec, will try to start docker again..."
-      # docker exec -it -w ${NAS_HOME} --user=${USER} ${container_name} /bin/bash
-      docker exec -it --user=${USER} ${container_name} /bin/bash
-    fi
+    #if [ $? != 0 ];then
+    #  echo "Maybe old dockerExec, will try to start docker again..."
+    #  # docker exec -it -w ${NAS_HOME} --user=${USER} ${container_name} /bin/bash
+    #  docker exec -it --user=${USER} ${container_name} /bin/bash
+    #fi
     exit 0
 fi
 
@@ -77,8 +77,8 @@ echo "Start docker container[${container_name}] using image[${image_name}]."
 docker run -dit ${BASIC_PARAM} ${DEVICES_LIST} ${VOLUME_DIRS} ${image_name}
 docker exec -it -w ${NAS_HOME} --use-nas-user ${container_name} /bin/bash
 #docker exec -it ${container_name} /bin/bash
-if [ $? != 0 ];then
-  echo "Maybe old dockerExec, will try to start docker again..."
-  # docker exec -it -w ${NAS_HOME} --user=${USER} ${container_name} /bin/bash
-  docker exec -it --user=${USER} ${container_name} /bin/bash
-fi
+#if [ $? != 0 ];then
+#  echo "Maybe old dockerExec, will try to start docker again..."
+#  # docker exec -it -w ${NAS_HOME} --user=${USER} ${container_name} /bin/bash
+#  docker exec -it --user=${USER} ${container_name} /bin/bash
+#fi

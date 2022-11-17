@@ -45,5 +45,9 @@ export PS1="\[\033[1;33m\]PT_VER $WHITE\h $GREEN\w$YELLOW\$(__git_ps1 \" \[\033[
 
 source /root/.scripts/git-completion.sh
 
+export USER=`id -un`
+git config --global user.email "$USER@cambricon.com"
+git config --global user.name "$USER"
+
 # pip source
 pip config set global.index-url https://pypi.tuna.tsinghua.edu.cn/simple
