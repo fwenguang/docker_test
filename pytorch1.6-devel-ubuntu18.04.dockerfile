@@ -1,13 +1,14 @@
-ARG BASE=yellow.hub.cambricon.com/pytorch/base/x86_64/pytorch:v0.5-x86_64-ubuntu18.04-torch_py36_gcc7_mpi
+ARG BASE=yellow.hub.cambricon.com/pytorch/base/x86_64/pytorch:v0.6-x86_64-ubuntu18.04-torch_py36_gcc7_mpi
 FROM ${BASE}
 
-ARG CNTOOLKIT_VERSION=3.1.1-1
-ARG CNNL_VERSION=1.13.1-1
-#ARG CNNL_EXTRA_VERSION=0.8.0-1
-ARG CNCL_VERSION=1.2.1-1
-ARG CNCV_VERSION=1.0.0-1
-ARG MAGICMIND_VERSION=0.13.1-1
-ARG MLUOPS_VERSION=0.2.0-1
+ARG CNTOOLKIT_VERSION=3.1.4-1
+ARG CNNL_VERSION=1.14.2-1
+ARG CNNL_EXTRA_VERSION=0.20.3-1
+ARG CNCL_VERSION=1.5.2-1
+ARG CNCV_VERSION=1.3.0-1
+ARG CNLIGHT_VERSION=0.17.1-1
+ARG MAGICMIND_VERSION=1.0.1-1
+# ARG MLUOPS_VERSION=0.2.0-1
 
 RUN apt update && \
     apt install -y gdb valgrind language-pack-zh-hans
@@ -28,10 +29,10 @@ RUN cd /tmp && \
     dpkg -i cnnl_install_pkg.deb && \
     rm -f cnnl_install_pkg.deb
 
-# RUN cd /tmp && \
-#     wget -O cnnl_extra_install_pkg.deb http://daily.software.cambricon.com/release/cnnlextra/Linux/x86_64/Ubuntu/18.04/${CNNL_EXTRA_VERSION}/cnnlextra_${CNNL_EXTRA_VERSION}.ubuntu18.04_amd64.deb && \
-#     dpkg -i cnnl_extra_install_pkg.deb && \
-#     rm -f cnnl_extra_install_pkg.deb
+RUN cd /tmp && \
+    wget -O cnnl_extra_install_pkg.deb http://daily.software.cambricon.com/release/cnnlextra/Linux/x86_64/Ubuntu/18.04/${CNNL_EXTRA_VERSION}/cnnlextra_${CNNL_EXTRA_VERSION}.ubuntu18.04_amd64.deb && \
+    dpkg -i cnnl_extra_install_pkg.deb && \
+    rm -f cnnl_extra_install_pkg.deb
 
 RUN cd /tmp && \
     wget -O cncl_install_pkg.deb http://daily.software.cambricon.com/release/cncl/Linux/x86_64/Ubuntu/18.04/${CNCL_VERSION}/cncl_${CNCL_VERSION}.ubuntu18.04_amd64.deb && \
@@ -44,17 +45,34 @@ RUN cd /tmp && \
     rm -f cncv_install_pkg.deb
 
 RUN cd /tmp && \
-    wget -O cncl_install_pkg.deb http://daily.software.cambricon.com/release/cncl/Linux/x86_64/Ubuntu/18.04/${CNCL_VERSION}/cncl_${CNCL_VERSION}.ubuntu18.04_amd64.deb && \
-    dpkg -i cncl_install_pkg.deb && \
-    rm -f cncl_install_pkg.deb
+    wget -O cnlight_install_pkg.deb \
+    http://daily.software.cambricon.com/release/cnlight/Linux/x86_64/Ubuntu/18.04/${CNLIGHT_VERSION}/cnlight_${CNLIGHT_VERSION}.abiold.ubuntu18.04_amd64.deb && \
+    dpkg -i cnlight_install_pkg.deb && \
+    rm -f cnlight_install_pkg.deb
 
 RUN cd /tmp && \
-    wget -O mluops_install_pkg.deb http://daily.software.cambricon.com/release/mluops/Linux/x86_64/Ubuntu/18.04/${MLUOPS_VERSION}/mluops_${MLUOPS_VERSION}.ubuntu18.04_amd64.deb && \
-    dpkg -i mluops_install_pkg.deb && \
-    rm -f mluops_install_pkg.deb
+    wget -O magicmind_install_pkg.deb \
+    http://daily.software.cambricon.com/release/magicmind/Linux/x86_64/Ubuntu/18.04/${MAGICMIND_VERSION}/abiold/magicmind-${MAGICMIND_VERSION}.ubuntu18.04_amd64.deb && \
+    dpkg -i magicmind_install_pkg.deb && \
+    rm -f magicmind_install_pkg.deb
+
+# RUN cd /tmp && \
+#     wget -O mluops_install_pkg.deb http://daily.software.cambricon.com/release/mluops/Linux/x86_64/Ubuntu/18.04/${MLUOPS_VERSION}/mluops_${MLUOPS_VERSION}.ubuntu18.04_amd64.deb && \
+#     dpkg -i mluops_install_pkg.deb && \
+#     rm -f mluops_install_pkg.deb
 
 ENV NEUWARE_HOME=/usr/local/neuware
 ENV LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$NEUWARE_HOME/lib64
 
-RUN chmod 777 -R /root
+RUN rm -f /usr/bin/python && \
+    ln -s /opt/py3.6/bin/python3.6 /usr/bin/python
 
+COPY ./scripts/.bashrc /root/
+COPY ./scripts/.scripts /root/.scripts
+RUN sed -i "s/PT_VER/PT1.6/" /root/.bashrc
+
+RUN chmod 777 -R /root
+RUN echo "source /root/.bashrc" >> /etc/bash.bashrc
+
+RUN echo "LANG=en_US.UTF-8" >> /etc/default/locale
+RUN localedef -i en_US -f UTF-8 en_US.UTF-8

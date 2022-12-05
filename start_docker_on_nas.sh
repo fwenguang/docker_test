@@ -75,7 +75,8 @@ fi
 
 echo "Start docker container[${container_name}] using image[${image_name}]."
 docker run -dit ${BASIC_PARAM} ${DEVICES_LIST} ${VOLUME_DIRS} ${image_name}
-docker cp ~/.ssh ${image_name}:/home/${USER}/
+docker exec -it -w ${NAS_HOME} --use-nas-user ${container_name} /bin/bash -c "echo 'Create /home/${USER}'"
+docker cp ~/.ssh ${container_name}:/home/${USER}/.ssh
 docker exec -it -w ${NAS_HOME} --use-nas-user ${container_name} /bin/bash
 #docker exec -it ${container_name} /bin/bash
 #if [ $? != 0 ];then
