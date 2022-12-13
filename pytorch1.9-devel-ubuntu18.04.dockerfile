@@ -1,10 +1,10 @@
-ARG BASE=yellow.hub.cambricon.com/pytorch/base/x86_64/pytorch:v0.6-x86_64-ubuntu18.04-torch_py36_gcc7_mpi
+ARG BASE=yellow.hub.cambricon.com/pytorch/base/x86_64/pytorch:v0.8-x86_64-ubuntu18.04-torch_py36_gcc7_mpi
 FROM ${BASE}
 
-ARG CNTOOLKIT_VERSION=3.1.3-1
-ARG CNNL_VERSION=1.14.1-1
-ARG CNNL_EXTRA_VERSION=0.20.1-1
-ARG CNCL_VERSION=1.5.0-1
+ARG CNTOOLKIT_VERSION=3.1.4-1
+ARG CNNL_VERSION=1.14.2-1
+ARG CNNL_EXTRA_VERSION=0.20.3-1
+ARG CNCL_VERSION=1.5.2-1
 ARG CNCV_VERSION=1.3.0-1
 
 RUN apt update && \

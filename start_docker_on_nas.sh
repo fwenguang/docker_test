@@ -3,7 +3,7 @@
 current_dir=$(cd $(dirname $0); pwd)
 
 container_name="${USER}_devel_pytorch"
-image_name="yellow.hub.cambricon.com/pytorch/devel/x86_64/pytorch:v0.1.0-devel-x86_64-ubuntu18.04-pytorch1.9"
+image_name="yellow.hub.cambricon.com/pytorch/devel/x86_64/pytorch:v0.2.0-devel-x86_64-ubuntu18.04-pytorch1.9"
 
 function usage() {
   echo "Usage:"
