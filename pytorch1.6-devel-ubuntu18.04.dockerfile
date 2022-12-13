@@ -17,7 +17,7 @@ RUN cd /tmp && \
     wget -O cntoolkit_install_pkg.deb http://daily.software.cambricon.com/release/cntoolkit/Linux/x86_64/Ubuntu/18.04/${CNTOOLKIT_VERSION}/cntoolkit_${CNTOOLKIT_VERSION}.ubuntu18.04_amd64.deb && \
     dpkg -i cntoolkit_install_pkg.deb && \
     apt update && \
-    apt-get install -y cnrt cnperf cnpapi cnlicense cngdb cndrv cndev cncodec cncc cnas cnbin cnstudio cnrtc && \
+    apt-get install -y cnrt cnperf cnpapi cnlicense cngdb cndrv cndev cncodec cncc cnas cnbin cnstudio cnrtc llvm-mm-cxx11-old-abi && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/* && \
     rm -rf /var/cntoolkit-* && \

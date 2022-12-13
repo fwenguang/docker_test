@@ -3,6 +3,7 @@ FROM ${BASE}
 
 ARG CNTOOLKIT_VERSION=3.1.3-1
 ARG CNNL_VERSION=1.14.1-1
+ARG CNNL_EXTRA_VERSION=0.20.1-1
 ARG CNCL_VERSION=1.5.0-1
 ARG CNCV_VERSION=1.3.0-1
 
@@ -24,6 +25,11 @@ RUN cd /tmp && \
     wget -O cnnl_install_pkg.deb http://daily.software.cambricon.com/release/cnnl/Linux/x86_64/Ubuntu/18.04/${CNNL_VERSION}/cnnl_${CNNL_VERSION}.ubuntu18.04_amd64.deb && \
     dpkg -i cnnl_install_pkg.deb && \
     rm -f cnnl_install_pkg.deb
+
+RUN cd /tmp && \
+    wget -O cnnl_extra_install_pkg.deb http://daily.software.cambricon.com/release/cnnlextra/Linux/x86_64/Ubuntu/18.04/${CNNL_EXTRA_VERSION}/cnnlextra_${CNNL_EXTRA_VERSION}.ubuntu18.04_amd64.deb && \
+    dpkg -i cnnl_extra_install_pkg.deb && \
+    rm -f cnnl_extra_install_pkg.deb
 
 RUN cd /tmp && \
     wget -O cncl_install_pkg.deb http://daily.software.cambricon.com/release/cncl/Linux/x86_64/Ubuntu/18.04/${CNCL_VERSION}/cncl_${CNCL_VERSION}.ubuntu18.04_amd64.deb && \

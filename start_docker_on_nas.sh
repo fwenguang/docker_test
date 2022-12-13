@@ -67,7 +67,7 @@ for dev in `ls /dev/*|grep cambricon_`
 do
     DEVICES_LIST="${DEVICES_LIST} --device=${dev} "
 done
-VOLUME_DIRS="-v /data:/data -v /tools:/tools -v /projs/framework/${USER}:/projs/framework/${USER}"
+VOLUME_DIRS="-v /data:/data -v /tools:/tools -v /algo:/algo -v /projs/framework/${USER}:/projs/framework/${USER}"
 CNMON_PATH=`which cnmon`
 if [ "X${CNMON_PATH}" != "X" ];then
   VOLUME_DIRS="${VOLUME_DIRS} -v ${CNMON_PATH}:${CNMON_PATH}"
