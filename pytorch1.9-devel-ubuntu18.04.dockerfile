@@ -8,7 +8,7 @@ ARG CNCL_VERSION=1.5.2-1
 ARG CNCV_VERSION=1.3.0-1
 
 RUN apt update && \
-    apt install -y gdb valgrind language-pack-zh-hans
+    apt install -y gdb valgrind language-pack-zh-hans net-tools
 
 RUN cd /tmp && \
     wget -O cntoolkit_install_pkg.deb http://daily.software.cambricon.com/release/cntoolkit/Linux/x86_64/Ubuntu/18.04/${CNTOOLKIT_VERSION}/cntoolkit_${CNTOOLKIT_VERSION}.ubuntu18.04_amd64.deb && \
