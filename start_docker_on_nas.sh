@@ -48,7 +48,7 @@ fi
 NAS_HOME="/projs/framework/$(whoami)"
 docker ps -a|grep -w ${container_name} > /dev/null 2>&1
 if [ $? -eq 0 ];then
-    echo "Found docker container: ${container_name}. Start it."
+    echo "Found docker container: ${container_name} . Start it."
     docker start ${container_name}
     docker exec -it -w ${NAS_HOME} --use-nas-user ${container_name} /bin/bash
     #docker exec -it ${container_name} /bin/bash
@@ -75,7 +75,7 @@ fi
 
 echo "Start docker container[${container_name}] using image[${image_name}]."
 docker run -dit ${BASIC_PARAM} ${DEVICES_LIST} ${VOLUME_DIRS} ${image_name}
-docker exec -it -w ${NAS_HOME} --use-nas-user ${container_name} /bin/bash -c "echo 'Create /home/${USER}'"
+docker exec -it ${container_name} /bin/bash -c "mkdir -p /home/${USER};chown `id -u`:`id -g` /home/${USER}"
 docker cp ~/.ssh ${container_name}:/home/${USER}/.ssh
 docker exec -it -w ${NAS_HOME} --use-nas-user ${container_name} /bin/bash
 #docker exec -it ${container_name} /bin/bash
