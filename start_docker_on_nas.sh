@@ -51,17 +51,17 @@ if [ $? -eq 0 ];then
     echo "Found docker container: ${container_name} . Start it."
     docker start ${container_name}
     docker exec -it -w ${NAS_HOME} --use-nas-user ${container_name} /bin/bash
-    #docker exec -it ${container_name} /bin/bash
-    #if [ $? != 0 ];then
-    #  echo "Maybe old dockerExec, will try to start docker again..."
-    #  # docker exec -it -w ${NAS_HOME} --user=${USER} ${container_name} /bin/bash
-    #  docker exec -it --user=${USER} ${container_name} /bin/bash
-    #fi
+    docker exec -it ${container_name} /bin/bash
+    if [ $? != 0 ];then
+      echo "Maybe old dockerExec, will try to start docker again..."
+      # docker exec -it -w ${NAS_HOME} --user=${USER} ${container_name} /bin/bash
+      docker exec -it --user=${USER} ${container_name} /bin/bash
+    fi
     exit 0
 fi
 
 
-BASIC_PARAM="--name=${container_name} --network=host --cap-add=sys_ptrace --shm-size=30gb"
+BASIC_PARAM="--name=${container_name} --network=host --cap-add=sys_ptrace --shm-size=150gb"
 DEVICES_LIST=""
 for dev in `ls /dev/*|grep cambricon_`
 do
