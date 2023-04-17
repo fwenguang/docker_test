@@ -14,4 +14,4 @@ jobs:
     runs-on: my_test
     steps:
       - name: test1
-        run: echo "!!!!!!!!!!!!"
+        run: echo "!!!!!!!!!!!!" && cnmon
