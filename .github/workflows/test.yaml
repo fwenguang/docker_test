@@ -1,0 +1,17 @@
+name: test
+
+on:
+  push:
+    paths-ignore:
+      - 'README.md'
+
+  pull_request:
+    path-ignore:
+      - 'README.md'
+
+jobs:
+  test_job:
+    runs-on: my_test
+    steps:
+      - name: test1
+        run: echo "!!!!!!!!!!!!"
