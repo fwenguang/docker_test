@@ -14,4 +14,4 @@ jobs:
     runs-on: my_test
     steps:
       - name: test1
-        run: echo "!!!!!!!!!!!!" && cnmon
+        run: echo "!!!!!!!!!!!!" && cnmon && docker pull yellow.hub.cambricon.com/cnserving/daily/x86_64/cnserving:r0.11-20230407-b868d002
